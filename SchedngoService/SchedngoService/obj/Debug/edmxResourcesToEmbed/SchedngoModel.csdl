@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchedngoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="ClientID" />
+      <PropertyRef Name="FirstName" />
+      <PropertyRef Name="LastName" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MeetingType">
+    <Key>
+      <PropertyRef Name="TypeID" />
+    </Key>
+    <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeID" Type="Int32" Nullable="false" />
+    <Property Name="OrganiserID" Type="Int32" Nullable="false" />
+    <Property Name="TaskTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TaskAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TaskName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cancelled" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Hash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserMeeting">
+    <Key>
+      <PropertyRef Name="MeetingID" />
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="MeetingID" Type="Int32" Nullable="false" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="SchedngoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Contacts" EntityType="Self.Contact" />
+    <EntitySet Name="MeetingTypes" EntityType="Self.MeetingType" />
+    <EntitySet Name="Tasks" EntityType="Self.Task" />
+    <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+    <EntitySet Name="UserMeetings" EntityType="Self.UserMeeting" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <FunctionImport Name="AddUserToMeeting">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="TaskID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CancelMeeting">
+      <Parameter Name="MeetingID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteMeeting">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+      <Parameter Name="TaskID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllUsersInvitedToMeeting" ReturnType="Collection(SchedngoModel.GetAllUsersInvitedToMeeting_Result)">
+      <Parameter Name="TaskID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetContactInfo" ReturnType="Collection(SchedngoModel.GetContactInfo_Result)">
+      <Parameter Name="ClientId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetMeetingInfoForUser" ReturnType="Collection(SchedngoModel.GetMeetingInfoForUser_Result)">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetSpecficMeetingInfo" ReturnType="Collection(SchedngoModel.GetSpecficMeetingInfo_Result)">
+      <Parameter Name="TaskID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetUser" ReturnType="Collection(SchedngoModel.GetUser_Result)">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertContact">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertMeetingType">
+      <Parameter Name="Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertTask">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+      <Parameter Name="TypeName" Mode="In" Type="String" />
+      <Parameter Name="Time" Mode="In" Type="DateTime" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+      <Parameter Name="TaskName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertUser">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+      <Parameter Name="Avatar" Mode="In" Type="Binary" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Hash" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="LoginCheck" ReturnType="Collection(Binary)">
+      <Parameter Name="EmailAddress" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="RemoveUserFromMeeting">
+      <Parameter Name="MeetingID" Mode="In" Type="Int32" />
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateClient">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="Avatar" Mode="In" Type="Binary" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdatePassword">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+      <Parameter Name="Hash" Mode="In" Type="Binary" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetAllUsersInvitedToMeeting_Result">
+    <Property Type="Int32" Name="ClientID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetContactInfo_Result">
+    <Property Type="Int32" Name="ClientID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Address" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetMeetingInfoForUser_Result">
+    <Property Type="String" Name="TaskName" Nullable="false" />
+    <Property Type="DateTime" Name="TaskTime" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="Cancelled" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetSpecficMeetingInfo_Result">
+    <Property Type="Int32" Name="TaskID" Nullable="false" />
+    <Property Type="Boolean" Name="Cancelled" Nullable="false" />
+    <Property Type="String" Name="TaskName" Nullable="false" />
+    <Property Type="DateTime" Name="TaskTime" Nullable="false" Precision="23" />
+    <Property Type="String" Name="TaskAddress" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetUser_Result">
+    <Property Type="Int32" Name="ClientID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="15" />
+    <Property Type="Binary" Name="Avatar" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="Address" Nullable="true" />
+    <Property Type="String" Name="UserName" Nullable="false" />
+  </ComplexType>
+</Schema>
