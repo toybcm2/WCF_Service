@@ -21,3 +21,26 @@ c:\users\sean\documents\visual studio 2015\Projects\SchedngoService\SchedngoServ
 c:\users\sean\documents\visual studio 2015\Projects\SchedngoService\SchedngoService\obj\Debug\SchedngoService.dll
 c:\users\sean\documents\visual studio 2015\Projects\SchedngoService\SchedngoService\obj\Debug\SchedngoService.pdb
 C:\Users\Sean\documents\visual studio 2015\Projects\SchedngoService\SchedngoService\obj\Debug\SchedngoService.csprojResolveAssemblyReference.cache
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\obj\Debug\SchedngoService.csprojResolveAssemblyReference.cache
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\obj\Debug\SchedngoService.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\obj\Debug\SchedngoService.pdb
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\ApplicationInsights.config
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\SchedngoService.dll.config
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\SchedngoService.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\SchedngoService.pdb
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\EntityFramework.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\EntityFramework.SqlServer.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.Web.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\EntityFramework.xml
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\EntityFramework.SqlServer.xml
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.Web.xml
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\bin\Microsoft.ApplicationInsights.xml

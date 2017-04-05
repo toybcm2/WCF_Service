@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Sean\documents\visual studio 2015\Projects\SchedngoService\SchedngoService\SchedngoModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Thomas\Source\Repos\WCF_Service\SchedngoService\SchedngoModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
