@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f39af6022fe64d059280ca3cf1fde8e9" Name="Diagram1">
+      <Diagram DiagramId="2aeabbf3242a4356a02513e030cab395" Name="Diagram1">
         <EntityTypeShape EntityType="SchedngoModel.Contact" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SchedngoModel.MeetingType" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SchedngoModel.Task" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />

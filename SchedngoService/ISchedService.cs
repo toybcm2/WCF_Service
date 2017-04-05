@@ -15,7 +15,9 @@ namespace SchedngoService
     {
         // TODO: Add your service operations here
         [OperationContract]
-        Client CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash);
+        Users CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash);
+        [OperationContract]
+        Users LoginCheck(string Email);
     }
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
 }

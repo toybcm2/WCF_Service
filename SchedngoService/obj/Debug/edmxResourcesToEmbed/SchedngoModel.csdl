@@ -38,7 +38,7 @@
     </Key>
     <Property Name="ClientID" Type="Int32" Nullable="false" />
     <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Hash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Hash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
   <EntityType Name="UserMeeting">
     <Key>
@@ -112,7 +112,7 @@
       <Parameter Name="Address" Mode="In" Type="String" />
       <Parameter Name="TaskName" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="InsertUser">
+    <FunctionImport Name="InsertUser" ReturnType="Collection(Int32)">
       <Parameter Name="FirstName" Mode="In" Type="String" />
       <Parameter Name="LastName" Mode="In" Type="String" />
       <Parameter Name="Email" Mode="In" Type="String" />
@@ -122,7 +122,7 @@
       <Parameter Name="UserName" Mode="In" Type="String" />
       <Parameter Name="Hash" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="LoginCheck" ReturnType="Collection(Binary)">
+    <FunctionImport Name="LoginCheck" ReturnType="Collection(String)">
       <Parameter Name="EmailAddress" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="RemoveUserFromMeeting">
@@ -138,7 +138,7 @@
     </FunctionImport>
     <FunctionImport Name="UpdatePassword">
       <Parameter Name="ClientID" Mode="In" Type="Int32" />
-      <Parameter Name="Hash" Mode="In" Type="Binary" />
+      <Parameter Name="Hash" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="GetAllUsersInvitedToMeeting_Result">

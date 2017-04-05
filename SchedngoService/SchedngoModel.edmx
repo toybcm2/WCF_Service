@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SchedngoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SchedngoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="ClientID" />
@@ -136,7 +136,7 @@
         </Function>
         <Function Name="UpdatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClientID" Type="int" Mode="In" />
-          <Parameter Name="Hash" Type="varbinary" Mode="In" />
+          <Parameter Name="Hash" Type="nvarchar(max)" Mode="In" />
         </Function>
         <EntityContainer Name="SchedngoModelStoreContainer">
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
@@ -146,7 +146,8 @@
           <EntitySet Name="UserMeetings" EntityType="Self.UserMeetings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchedngoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -188,7 +189,7 @@
           </Key>
           <Property Name="ClientID" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Hash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Hash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="UserMeeting">
           <Key>
@@ -223,26 +224,26 @@
             <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CancelMeeting">
-          <Parameter Name="MeetingID" Mode="In" Type="Int32" />
+            <Parameter Name="MeetingID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteMeeting">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
             <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAllUsersInvitedToMeeting" ReturnType="Collection(SchedngoModel.GetAllUsersInvitedToMeeting_Result)">
-          <Parameter Name="TaskID" Mode="In" Type="Int32" />
+            <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetContactInfo" ReturnType="Collection(SchedngoModel.GetContactInfo_Result)">
-          <Parameter Name="ClientId" Mode="In" Type="Int32" />
+            <Parameter Name="ClientId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetMeetingInfoForUser" ReturnType="Collection(SchedngoModel.GetMeetingInfoForUser_Result)">
-          <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetSpecficMeetingInfo" ReturnType="Collection(SchedngoModel.GetSpecficMeetingInfo_Result)">
-          <Parameter Name="TaskID" Mode="In" Type="Int32" />
+            <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUser" ReturnType="Collection(SchedngoModel.GetUser_Result)">
-          <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertContact">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
@@ -253,7 +254,7 @@
             <Parameter Name="Address" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertMeetingType">
-          <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertTask">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
@@ -262,7 +263,7 @@
             <Parameter Name="Address" Mode="In" Type="String" />
             <Parameter Name="TaskName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="InsertUser">
+          <FunctionImport Name="InsertUser" ReturnType="Collection(Int32)">
             <Parameter Name="FirstName" Mode="In" Type="String" />
             <Parameter Name="LastName" Mode="In" Type="String" />
             <Parameter Name="Email" Mode="In" Type="String" />
@@ -272,8 +273,8 @@
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="Hash" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="LoginCheck" ReturnType="Collection(Binary)">
-          <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          <FunctionImport Name="LoginCheck" ReturnType="Collection(String)">
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RemoveUserFromMeeting">
             <Parameter Name="MeetingID" Mode="In" Type="Int32" />
@@ -288,7 +289,7 @@
           </FunctionImport>
           <FunctionImport Name="UpdatePassword">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
-            <Parameter Name="Hash" Mode="In" Type="Binary" />
+            <Parameter Name="Hash" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetAllUsersInvitedToMeeting_Result">

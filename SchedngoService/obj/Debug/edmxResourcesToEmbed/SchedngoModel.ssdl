@@ -131,7 +131,7 @@
   </Function>
   <Function Name="UpdatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ClientID" Type="int" Mode="In" />
-    <Parameter Name="Hash" Type="varbinary" Mode="In" />
+    <Parameter Name="Hash" Type="nvarchar(max)" Mode="In" />
   </Function>
   <EntityContainer Name="SchedngoModelStoreContainer">
     <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />

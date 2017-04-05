@@ -13,22 +13,23 @@ namespace SchedngoService
     public class SchedService : ISchedService
     {
         SchedngoEntities context = new SchedngoEntities();
-        public Client CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash)
+        public Users CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash)
         {
-            Client newUser = new Client();
+            int? rawReturn;
+            Users newUser = new Users();
             newUser.FirstName = FirstName;
             newUser.LastName = LastName;
             newUser.UserName = UserName;
-            int clientReturn = context.InsertUser(FirstName, LastName, Email, Phone, Address, null, UserName, Hash);
-            newUser.ClientID = clientReturn;
+            rawReturn = context.InsertUser(FirstName, LastName, Email, Phone, Address, null, UserName, Hash).FirstOrDefault();
+            newUser.ClientID = Convert.ToInt32(rawReturn);
             return newUser;
         }
-        public Client FindUser(int ClientID)
+        public Users LoginCheck(string Email)
         {
-            Client foundUser = new Client();
-            GetUser_Result found = GetUser_Result();
-            found = context.GetUser(ClientID);
-            return foundUser;
+            string hash;
+            hash = context.LoginCheck(Email).FirstOrDefault();
+            
+            return new Users();
         }
     }
 }

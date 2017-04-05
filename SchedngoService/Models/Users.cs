@@ -7,7 +7,7 @@ using System.Web;
 namespace SchedngoService
 {
     [DataContract]
-    public class Client
+    public class Users
     {
         [DataMember]
         public int ClientID { get; set; }

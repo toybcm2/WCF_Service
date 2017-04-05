@@ -181,7 +181,7 @@ namespace SchedngoService
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTask", clientIDParameter, typeNameParameter, timeParameter, addressParameter, taskNameParameter);
         }
     
-        public virtual int InsertUser(string firstName, string lastName, string email, string phone, string address, byte[] avatar, string userName, string hash)
+        public virtual ObjectResult<Nullable<int>> InsertUser(string firstName, string lastName, string email, string phone, string address, byte[] avatar, string userName, string hash)
         {
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("FirstName", firstName) :
@@ -215,16 +215,16 @@ namespace SchedngoService
                 new ObjectParameter("Hash", hash) :
                 new ObjectParameter("Hash", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUser", firstNameParameter, lastNameParameter, emailParameter, phoneParameter, addressParameter, avatarParameter, userNameParameter, hashParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InsertUser", firstNameParameter, lastNameParameter, emailParameter, phoneParameter, addressParameter, avatarParameter, userNameParameter, hashParameter);
         }
     
-        public virtual ObjectResult<byte[]> LoginCheck(string emailAddress)
+        public virtual ObjectResult<string> LoginCheck(string emailAddress)
         {
             var emailAddressParameter = emailAddress != null ?
                 new ObjectParameter("EmailAddress", emailAddress) :
                 new ObjectParameter("EmailAddress", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<byte[]>("LoginCheck", emailAddressParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("LoginCheck", emailAddressParameter);
         }
     
         public virtual int RemoveUserFromMeeting(Nullable<int> meetingID, Nullable<int> clientID)
@@ -265,7 +265,7 @@ namespace SchedngoService
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateClient", clientIDParameter, phoneParameter, avatarParameter, addressParameter, userNameParameter);
         }
     
-        public virtual int UpdatePassword(Nullable<int> clientID, byte[] hash)
+        public virtual int UpdatePassword(Nullable<int> clientID, string hash)
         {
             var clientIDParameter = clientID.HasValue ?
                 new ObjectParameter("ClientID", clientID) :
@@ -273,7 +273,7 @@ namespace SchedngoService
     
             var hashParameter = hash != null ?
                 new ObjectParameter("Hash", hash) :
-                new ObjectParameter("Hash", typeof(byte[]));
+                new ObjectParameter("Hash", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePassword", clientIDParameter, hashParameter);
         }
