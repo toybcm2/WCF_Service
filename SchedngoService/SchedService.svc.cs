@@ -15,21 +15,65 @@ namespace SchedngoService
         SchedngoEntities context = new SchedngoEntities();
         public Users CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash)
         {
-            int? rawReturn;
             Users newUser = new Users();
             newUser.FirstName = FirstName;
             newUser.LastName = LastName;
             newUser.UserName = UserName;
-            rawReturn = context.InsertUser(FirstName, LastName, Email, Phone, Address, null, UserName, Hash).FirstOrDefault();
-            newUser.ClientID = Convert.ToInt32(rawReturn);
+            int clientReturn = context.InsertUser(FirstName, LastName, Email, Phone, Address, null, UserName, Hash);
+            newUser.ClientID = clientReturn;
             return newUser;
         }
-        public Users LoginCheck(string Email)
+        public void AddUserToMeeting(string FirstName, string LastName, int TaskID)
         {
-            string hash;
-            hash = context.LoginCheck(Email).FirstOrDefault();
-            
-            return new Users();
+
+        }
+        public void CancelMeeting(int MeetingID)
+        {
+
+        }
+        public void DeleteMeeting(int ClientID, int TaskID)
+        {
+
+        }
+        public void GetAllUsersInvitedToMeeting(int TaskID)
+        {
+
+        }
+        public void GetContactInfo(int ClientId)
+        {
+
+        }
+        public void GetMeetingInfoForUser(int ClientID)
+        {
+
+        }
+        public void GetSpecificMeetingInfo(int TaskID)
+        {
+
+        }
+        public void GetUser(int ClientID)
+        {
+
+        }
+        public void InsertContact(int ClientID, string FirstName, string LastName, string Phone, string Email, string Address)
+        {
+
+        }
+        public void InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName)
+        {
+
+        }
+        public void RemoveUserFromMeeting(int MeetingID, int ClientID)
+        {
+
+        }
+        public void UpdateClient(int ClientID, string Phone, string Address, string UserName)
+        {
+
+        }
+        public void UpdatePassword(int ClientID)
+        {
+
         }
     }
 }

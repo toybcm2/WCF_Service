@@ -113,6 +113,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Contacts.cs" />
+    <Compile Include="Models\Tasks.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Contact.cs">
       <DependentUpon>SchedngoModel.tt</DependentUpon>
     </Compile>
@@ -134,7 +137,6 @@
     <Compile Include="MeetingType.cs">
       <DependentUpon>SchedngoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Users.cs" />
     <Compile Include="SchedngoModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
