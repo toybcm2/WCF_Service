@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using SchedngoService;
+using SchedngoService.Models;
 
 namespace SchedngoService
 {
@@ -16,19 +17,32 @@ namespace SchedngoService
         // TODO: Add your service operations here
         [OperationContract]
         Users CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash);
-        void AddUserToMeeting(string FirstName, string LastName, int TaskID);
-        void CancelMeeting(int MeetingID);
-        void DeleteMeeting(int ClientID, int TaskID);
-        void GetAllUsersInvitedToMeeting(int TaskID);
-        void GetContactInfo(int ClientId);
-        void GetMeetingInfoForUser(int ClientID);
-        void GetSpecificMeetingInfo(int TaskID);
-        void GetUser(int ClientID);
-        void InsertContact(int ClientID, string FirstName, string LastName, string Phone, string Email, string Address);
-        void InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName);
-        void RemoveUserFromMeeting(int MeetingID, int ClientID);
-        void UpdateClient(int ClientID, string Phone, string Address, string UserName);
-        void UpdatePassword(int ClientID);
+        [OperationContract]
+        Users LoginCheck(string Email);
+        [OperationContract]
+        string AddUserToMeeting(string FirstName, string LastName, int TaskID, string Email);
+        [OperationContract]
+        string CancelMeeting(int MeetingID);
+        [OperationContract]
+        List<Users> GetAllUsersInvitedToMeeting(int TaskID);
+        [OperationContract]
+        List<Contacts> GetContactInfo(int ClientId);
+        [OperationContract]
+        List<Tasks> GetMeetingInfoForUser(int ClientID);
+        [OperationContract]
+        Tasks GetSpecificMeetingInfo(int TaskID);
+        [OperationContract]
+        Users GetUser(string Email);
+        [OperationContract]
+        string InsertContact(int ClientID, string FirstName, string LastName, string Phone, string Email, string Address);
+        [OperationContract]
+        string InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName);
+        [OperationContract]
+        string RemoveUserFromMeeting(int MeetingID, int ClientID);
+        [OperationContract]
+        string UpdateUser(int ClientID, string Phone, string Address, string UserName, byte[] Avatar);
+        [OperationContract]
+        string UpdatePassword(int ClientID, string Hash);
 
     }
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

@@ -14,7 +14,7 @@ namespace SchedngoService.Models
         [DataMember]
         public int TypeID { get; set; }
         [DataMember]
-        public int OrganiserID { get; set; }
+        public int OrganizerID { get; set; }
         [DataMember]
         public DateTime TaskTime { get; set; }
         [DataMember]
@@ -23,6 +23,13 @@ namespace SchedngoService.Models
         public string TaskName { get; set; }
         [DataMember]
         public Boolean Cancelled { get; set; }
-
+        [DataMember]
+        public string OrganizerFirstName { get; set; }
+        [DataMember]
+        public string OrganizerLastName { get; set; }
+        [DataMember]
+        public string TypeName { get; set; }
+        [DataMember]
+        public string Error { get; set; }
     }
 }

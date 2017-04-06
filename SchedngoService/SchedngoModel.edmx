@@ -18,24 +18,24 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="MeetingTypes">
-          <Key>
-            <PropertyRef Name="TypeID" />
-          </Key>
-          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="Tasks">
           <Key>
             <PropertyRef Name="TaskID" />
           </Key>
           <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeID" Type="int" Nullable="false" />
-          <Property Name="OrganiserID" Type="int" Nullable="false" />
+          <Property Name="OrganizerID" Type="int" Nullable="false" />
           <Property Name="TaskTime" Type="datetime" Nullable="false" />
           <Property Name="TaskAddress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TaskName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Cancelled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskTypes">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -44,14 +44,6 @@
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserMeetings">
-          <Key>
-            <PropertyRef Name="MeetingID" />
-            <PropertyRef Name="ClientID" />
-          </Key>
-          <Property Name="MeetingID" Type="int" Nullable="false" />
-          <Property Name="ClientID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -65,17 +57,22 @@
           <Property Name="Avatar" Type="image" />
           <Property Name="Address" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="UserTasks">
+          <Key>
+            <PropertyRef Name="MeetingID" />
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="MeetingID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+        </EntityType>
         <Function Name="AddUserToMeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
           <Parameter Name="TaskID" Type="int" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="CancelMeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MeetingID" Type="int" Mode="In" />
-        </Function>
-        <Function Name="DeleteMeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClientID" Type="int" Mode="In" />
-          <Parameter Name="TaskID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetAllUsersInvitedToMeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TaskID" Type="int" Mode="In" />
@@ -90,7 +87,7 @@
           <Parameter Name="TaskID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="InsertContact" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClientID" Type="int" Mode="In" />
@@ -100,15 +97,15 @@
           <Parameter Name="Email" Type="nvarchar" Mode="In" />
           <Parameter Name="Address" Type="nvarchar(max)" Mode="In" />
         </Function>
-        <Function Name="InsertMeetingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Name" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="InsertTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClientID" Type="int" Mode="In" />
           <Parameter Name="TypeName" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Time" Type="datetime" Mode="In" />
           <Parameter Name="Address" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="TaskName" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="InsertTaskType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="InsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
@@ -127,24 +124,24 @@
           <Parameter Name="MeetingID" Type="int" Mode="In" />
           <Parameter Name="ClientID" Type="int" Mode="In" />
         </Function>
-        <Function Name="UpdateClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="UpdatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="Hash" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ClientID" Type="int" Mode="In" />
           <Parameter Name="Phone" Type="nvarchar" Mode="In" />
           <Parameter Name="Avatar" Type="image" Mode="In" />
           <Parameter Name="Address" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="UserName" Type="nvarchar(max)" Mode="In" />
         </Function>
-        <Function Name="UpdatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ClientID" Type="int" Mode="In" />
-          <Parameter Name="Hash" Type="nvarchar(max)" Mode="In" />
-        </Function>
         <EntityContainer Name="SchedngoModelStoreContainer">
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MeetingTypes" EntityType="Self.MeetingTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskTypes" EntityType="Self.TaskTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserMeetings" EntityType="Self.UserMeetings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTasks" EntityType="Self.UserTasks" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -164,24 +161,24 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="MeetingType">
-          <Key>
-            <PropertyRef Name="TypeID" />
-          </Key>
-          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Task">
           <Key>
             <PropertyRef Name="TaskID" />
           </Key>
           <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <Property Name="OrganiserID" Type="Int32" Nullable="false" />
+          <Property Name="OrganizerID" Type="Int32" Nullable="false" />
           <Property Name="TaskTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TaskAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TaskName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Cancelled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -190,14 +187,6 @@
           <Property Name="ClientID" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Hash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserMeeting">
-          <Key>
-            <PropertyRef Name="MeetingID" />
-            <PropertyRef Name="ClientID" />
-          </Key>
-          <Property Name="MeetingID" Type="Int32" Nullable="false" />
-          <Property Name="ClientID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -211,24 +200,29 @@
           <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="UserTask">
+          <Key>
+            <PropertyRef Name="MeetingID" />
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="MeetingID" Type="Int32" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="SchedngoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Contacts" EntityType="Self.Contact" />
-          <EntitySet Name="MeetingTypes" EntityType="Self.MeetingType" />
           <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="TaskTypes" EntityType="Self.TaskType" />
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
-          <EntitySet Name="UserMeetings" EntityType="Self.UserMeeting" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserTasks" EntityType="Self.UserTask" />
           <FunctionImport Name="AddUserToMeeting">
             <Parameter Name="FirstName" Mode="In" Type="String" />
             <Parameter Name="LastName" Mode="In" Type="String" />
             <Parameter Name="TaskID" Mode="In" Type="Int32" />
+            <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CancelMeeting">
             <Parameter Name="MeetingID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="DeleteMeeting">
-            <Parameter Name="ClientID" Mode="In" Type="Int32" />
-            <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAllUsersInvitedToMeeting" ReturnType="Collection(SchedngoModel.GetAllUsersInvitedToMeeting_Result)">
             <Parameter Name="TaskID" Mode="In" Type="Int32" />
@@ -243,7 +237,7 @@
             <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUser" ReturnType="Collection(SchedngoModel.GetUser_Result)">
-            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertContact">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
@@ -253,15 +247,15 @@
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Address" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="InsertMeetingType">
-            <Parameter Name="Name" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="InsertTask">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
             <Parameter Name="TypeName" Mode="In" Type="String" />
             <Parameter Name="Time" Mode="In" Type="DateTime" />
             <Parameter Name="Address" Mode="In" Type="String" />
             <Parameter Name="TaskName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertTaskType">
+            <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertUser" ReturnType="Collection(Int32)">
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -280,16 +274,16 @@
             <Parameter Name="MeetingID" Mode="In" Type="Int32" />
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="UpdateClient">
+          <FunctionImport Name="UpdatePassword">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="Hash" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUser">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
             <Parameter Name="Phone" Mode="In" Type="String" />
             <Parameter Name="Avatar" Mode="In" Type="Binary" />
             <Parameter Name="Address" Mode="In" Type="String" />
             <Parameter Name="UserName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="UpdatePassword">
-            <Parameter Name="ClientID" Mode="In" Type="Int32" />
-            <Parameter Name="Hash" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetAllUsersInvitedToMeeting_Result">
@@ -349,24 +343,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MeetingTypes">
-            <EntityTypeMapping TypeName="SchedngoModel.MeetingType">
-              <MappingFragment StoreEntitySet="MeetingTypes">
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="SchedngoModel.Task">
               <MappingFragment StoreEntitySet="Tasks">
                 <ScalarProperty Name="TaskID" ColumnName="TaskID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="OrganiserID" ColumnName="OrganiserID" />
+                <ScalarProperty Name="OrganizerID" ColumnName="OrganizerID" />
                 <ScalarProperty Name="TaskTime" ColumnName="TaskTime" />
                 <ScalarProperty Name="TaskAddress" ColumnName="TaskAddress" />
                 <ScalarProperty Name="TaskName" ColumnName="TaskName" />
                 <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskTypes">
+            <EntityTypeMapping TypeName="SchedngoModel.TaskType">
+              <MappingFragment StoreEntitySet="TaskTypes">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -376,14 +370,6 @@
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Hash" ColumnName="Hash" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserMeetings">
-            <EntityTypeMapping TypeName="SchedngoModel.UserMeeting">
-              <MappingFragment StoreEntitySet="UserMeetings">
-                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -400,9 +386,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserTasks">
+            <EntityTypeMapping TypeName="SchedngoModel.UserTask">
+              <MappingFragment StoreEntitySet="UserTasks">
+                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="AddUserToMeeting" FunctionName="SchedngoModel.Store.AddUserToMeeting" />
           <FunctionImportMapping FunctionImportName="CancelMeeting" FunctionName="SchedngoModel.Store.CancelMeeting" />
-          <FunctionImportMapping FunctionImportName="DeleteMeeting" FunctionName="SchedngoModel.Store.DeleteMeeting" />
           <FunctionImportMapping FunctionImportName="GetAllUsersInvitedToMeeting" FunctionName="SchedngoModel.Store.GetAllUsersInvitedToMeeting">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SchedngoModel.GetAllUsersInvitedToMeeting_Result">
@@ -463,13 +456,13 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertContact" FunctionName="SchedngoModel.Store.InsertContact" />
-          <FunctionImportMapping FunctionImportName="InsertMeetingType" FunctionName="SchedngoModel.Store.InsertMeetingType" />
           <FunctionImportMapping FunctionImportName="InsertTask" FunctionName="SchedngoModel.Store.InsertTask" />
+          <FunctionImportMapping FunctionImportName="InsertTaskType" FunctionName="SchedngoModel.Store.InsertTaskType" />
           <FunctionImportMapping FunctionImportName="InsertUser" FunctionName="SchedngoModel.Store.InsertUser" />
           <FunctionImportMapping FunctionImportName="LoginCheck" FunctionName="SchedngoModel.Store.LoginCheck" />
           <FunctionImportMapping FunctionImportName="RemoveUserFromMeeting" FunctionName="SchedngoModel.Store.RemoveUserFromMeeting" />
-          <FunctionImportMapping FunctionImportName="UpdateClient" FunctionName="SchedngoModel.Store.UpdateClient" />
           <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="SchedngoModel.Store.UpdatePassword" />
+          <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="SchedngoModel.Store.UpdateUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

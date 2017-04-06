@@ -27,5 +27,9 @@ namespace SchedngoService
         public string Password { get; set; }
         [DataMember]
         public string Hash { get; set; }
+        [DataMember]
+        public byte[] Avatar { get; set; }
+        [DataMember]
+        public string Error { get; set; }
     }
 }

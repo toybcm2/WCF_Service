@@ -28,13 +28,13 @@ namespace SchedngoService
         }
     
         public virtual DbSet<Contact> Contacts { get; set; }
-        public virtual DbSet<MeetingType> MeetingTypes { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<TaskType> TaskTypes { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
-        public virtual DbSet<UserMeeting> UserMeetings { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserTask> UserTasks { get; set; }
     
-        public virtual int AddUserToMeeting(string firstName, string lastName, Nullable<int> taskID)
+        public virtual int AddUserToMeeting(string firstName, string lastName, Nullable<int> taskID, string email)
         {
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("FirstName", firstName) :
@@ -48,7 +48,11 @@ namespace SchedngoService
                 new ObjectParameter("TaskID", taskID) :
                 new ObjectParameter("TaskID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUserToMeeting", firstNameParameter, lastNameParameter, taskIDParameter);
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUserToMeeting", firstNameParameter, lastNameParameter, taskIDParameter, emailParameter);
         }
     
         public virtual int CancelMeeting(Nullable<int> meetingID)
@@ -58,19 +62,6 @@ namespace SchedngoService
                 new ObjectParameter("MeetingID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CancelMeeting", meetingIDParameter);
-        }
-    
-        public virtual int DeleteMeeting(Nullable<int> clientID, Nullable<int> taskID)
-        {
-            var clientIDParameter = clientID.HasValue ?
-                new ObjectParameter("ClientID", clientID) :
-                new ObjectParameter("ClientID", typeof(int));
-    
-            var taskIDParameter = taskID.HasValue ?
-                new ObjectParameter("TaskID", taskID) :
-                new ObjectParameter("TaskID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteMeeting", clientIDParameter, taskIDParameter);
         }
     
         public virtual ObjectResult<GetAllUsersInvitedToMeeting_Result> GetAllUsersInvitedToMeeting(Nullable<int> taskID)
@@ -109,13 +100,13 @@ namespace SchedngoService
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSpecficMeetingInfo_Result>("GetSpecficMeetingInfo", taskIDParameter);
         }
     
-        public virtual ObjectResult<GetUser_Result> GetUser(Nullable<int> clientID)
+        public virtual ObjectResult<GetUser_Result> GetUser(string email)
         {
-            var clientIDParameter = clientID.HasValue ?
-                new ObjectParameter("ClientID", clientID) :
-                new ObjectParameter("ClientID", typeof(int));
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUser_Result>("GetUser", clientIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUser_Result>("GetUser", emailParameter);
         }
     
         public virtual int InsertContact(Nullable<int> clientID, string firstName, string lastName, string phone, string email, string address)
@@ -147,15 +138,6 @@ namespace SchedngoService
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertContact", clientIDParameter, firstNameParameter, lastNameParameter, phoneParameter, emailParameter, addressParameter);
         }
     
-        public virtual int InsertMeetingType(string name)
-        {
-            var nameParameter = name != null ?
-                new ObjectParameter("Name", name) :
-                new ObjectParameter("Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertMeetingType", nameParameter);
-        }
-    
         public virtual int InsertTask(Nullable<int> clientID, string typeName, Nullable<System.DateTime> time, string address, string taskName)
         {
             var clientIDParameter = clientID.HasValue ?
@@ -179,6 +161,15 @@ namespace SchedngoService
                 new ObjectParameter("TaskName", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTask", clientIDParameter, typeNameParameter, timeParameter, addressParameter, taskNameParameter);
+        }
+    
+        public virtual int InsertTaskType(string name)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTaskType", nameParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> InsertUser(string firstName, string lastName, string email, string phone, string address, byte[] avatar, string userName, string hash)
@@ -240,7 +231,20 @@ namespace SchedngoService
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RemoveUserFromMeeting", meetingIDParameter, clientIDParameter);
         }
     
-        public virtual int UpdateClient(Nullable<int> clientID, string phone, byte[] avatar, string address, string userName)
+        public virtual int UpdatePassword(Nullable<int> clientID, string hash)
+        {
+            var clientIDParameter = clientID.HasValue ?
+                new ObjectParameter("ClientID", clientID) :
+                new ObjectParameter("ClientID", typeof(int));
+    
+            var hashParameter = hash != null ?
+                new ObjectParameter("Hash", hash) :
+                new ObjectParameter("Hash", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePassword", clientIDParameter, hashParameter);
+        }
+    
+        public virtual int UpdateUser(Nullable<int> clientID, string phone, byte[] avatar, string address, string userName)
         {
             var clientIDParameter = clientID.HasValue ?
                 new ObjectParameter("ClientID", clientID) :
@@ -262,20 +266,7 @@ namespace SchedngoService
                 new ObjectParameter("UserName", userName) :
                 new ObjectParameter("UserName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateClient", clientIDParameter, phoneParameter, avatarParameter, addressParameter, userNameParameter);
-        }
-    
-        public virtual int UpdatePassword(Nullable<int> clientID, string hash)
-        {
-            var clientIDParameter = clientID.HasValue ?
-                new ObjectParameter("ClientID", clientID) :
-                new ObjectParameter("ClientID", typeof(int));
-    
-            var hashParameter = hash != null ?
-                new ObjectParameter("Hash", hash) :
-                new ObjectParameter("Hash", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePassword", clientIDParameter, hashParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUser", clientIDParameter, phoneParameter, avatarParameter, addressParameter, userNameParameter);
         }
     }
 }

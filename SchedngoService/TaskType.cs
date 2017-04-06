@@ -12,7 +12,7 @@ namespace SchedngoService
     using System;
     using System.Collections.Generic;
     
-    public partial class MeetingType
+    public partial class TaskType
     {
         public int TypeID { get; set; }
         public string Name { get; set; }

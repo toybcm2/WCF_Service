@@ -12,7 +12,7 @@ namespace SchedngoService
     using System;
     using System.Collections.Generic;
     
-    public partial class UserMeeting
+    public partial class UserTask
     {
         public int MeetingID { get; set; }
         public int ClientID { get; set; }

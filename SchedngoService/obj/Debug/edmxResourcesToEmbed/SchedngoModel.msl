@@ -13,24 +13,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MeetingTypes">
-      <EntityTypeMapping TypeName="SchedngoModel.MeetingType">
-        <MappingFragment StoreEntitySet="MeetingTypes">
-          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Tasks">
       <EntityTypeMapping TypeName="SchedngoModel.Task">
         <MappingFragment StoreEntitySet="Tasks">
           <ScalarProperty Name="TaskID" ColumnName="TaskID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-          <ScalarProperty Name="OrganiserID" ColumnName="OrganiserID" />
+          <ScalarProperty Name="OrganizerID" ColumnName="OrganizerID" />
           <ScalarProperty Name="TaskTime" ColumnName="TaskTime" />
           <ScalarProperty Name="TaskAddress" ColumnName="TaskAddress" />
           <ScalarProperty Name="TaskName" ColumnName="TaskName" />
           <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaskTypes">
+      <EntityTypeMapping TypeName="SchedngoModel.TaskType">
+        <MappingFragment StoreEntitySet="TaskTypes">
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -40,14 +40,6 @@
           <ScalarProperty Name="ClientID" ColumnName="ClientID" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Hash" ColumnName="Hash" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserMeetings">
-      <EntityTypeMapping TypeName="SchedngoModel.UserMeeting">
-        <MappingFragment StoreEntitySet="UserMeetings">
-          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
-          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -64,9 +56,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="UserTasks">
+      <EntityTypeMapping TypeName="SchedngoModel.UserTask">
+        <MappingFragment StoreEntitySet="UserTasks">
+          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="AddUserToMeeting" FunctionName="SchedngoModel.Store.AddUserToMeeting" />
     <FunctionImportMapping FunctionImportName="CancelMeeting" FunctionName="SchedngoModel.Store.CancelMeeting" />
-    <FunctionImportMapping FunctionImportName="DeleteMeeting" FunctionName="SchedngoModel.Store.DeleteMeeting" />
     <FunctionImportMapping FunctionImportName="GetAllUsersInvitedToMeeting" FunctionName="SchedngoModel.Store.GetAllUsersInvitedToMeeting">
       <ResultMapping>
         <ComplexTypeMapping TypeName="SchedngoModel.GetAllUsersInvitedToMeeting_Result">
@@ -127,12 +126,12 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="InsertContact" FunctionName="SchedngoModel.Store.InsertContact" />
-    <FunctionImportMapping FunctionImportName="InsertMeetingType" FunctionName="SchedngoModel.Store.InsertMeetingType" />
     <FunctionImportMapping FunctionImportName="InsertTask" FunctionName="SchedngoModel.Store.InsertTask" />
+    <FunctionImportMapping FunctionImportName="InsertTaskType" FunctionName="SchedngoModel.Store.InsertTaskType" />
     <FunctionImportMapping FunctionImportName="InsertUser" FunctionName="SchedngoModel.Store.InsertUser" />
     <FunctionImportMapping FunctionImportName="LoginCheck" FunctionName="SchedngoModel.Store.LoginCheck" />
     <FunctionImportMapping FunctionImportName="RemoveUserFromMeeting" FunctionName="SchedngoModel.Store.RemoveUserFromMeeting" />
-    <FunctionImportMapping FunctionImportName="UpdateClient" FunctionName="SchedngoModel.Store.UpdateClient" />
     <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="SchedngoModel.Store.UpdatePassword" />
+    <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="SchedngoModel.Store.UpdateUser" />
   </EntityContainerMapping>
 </Mapping>

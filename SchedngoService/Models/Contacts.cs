@@ -21,5 +21,7 @@ namespace SchedngoService.Models
         public string Email { get; set; }
         [DataMember]
         public string Address { get; set; }
+        [DataMember]
+        public string Error { get; set; }
     }
 }

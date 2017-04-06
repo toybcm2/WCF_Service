@@ -16,7 +16,7 @@ namespace SchedngoService
     {
         public int TaskID { get; set; }
         public int TypeID { get; set; }
-        public int OrganiserID { get; set; }
+        public int OrganizerID { get; set; }
         public System.DateTime TaskTime { get; set; }
         public string TaskAddress { get; set; }
         public string TaskName { get; set; }
