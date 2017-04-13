@@ -18,7 +18,7 @@ namespace SchedngoService
         [OperationContract]
         Users CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash);
         [OperationContract]
-        Users LoginCheck(string Email);
+        string LoginCheck(string Email, string Hash);
         [OperationContract]
         string AddUserToMeeting(string FirstName, string LastName, int TaskID, string Email);
         [OperationContract]

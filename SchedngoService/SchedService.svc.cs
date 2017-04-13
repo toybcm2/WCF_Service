@@ -1,8 +1,10 @@
 ﻿using SchedngoService.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
@@ -13,6 +15,9 @@ namespace SchedngoService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class SchedService : ISchedService
     {
+        private const string initVector = "pemgail9uzpgzl88";
+        private const string plainText = "DragonQuest8";
+        private const int keysize = 256;
         SchedngoEntities context = new SchedngoEntities();
         public Users CreateUser(string FirstName, string LastName, string Phone, string Email, string Address, string UserName, string Hash)
         {
@@ -21,21 +26,76 @@ namespace SchedngoService
             newUser.FirstName = FirstName;
             newUser.LastName = LastName;
             newUser.UserName = UserName;
+            byte[] initVectorBytes = Encoding.UTF8.GetBytes(initVector);
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            PasswordDeriveBytes password = new PasswordDeriveBytes(Hash, null);
+            byte[] keyBytes = password.GetBytes(keysize / 8);
+            RijndaelManaged symmetricKey = new RijndaelManaged();
+            symmetricKey.Mode = CipherMode.CBC;
+            ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes);
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
+            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+            cryptoStream.FlushFinalBlock();
+            byte[] cipherTextBytes = memoryStream.ToArray();
+            memoryStream.Close();
+            cryptoStream.Close();
+            Hash = Convert.ToBase64String(cipherTextBytes);
             rawResult = context.InsertUser(FirstName, LastName, Email, Phone, Address, null, UserName, Hash).FirstOrDefault();
             newUser.ClientID = Convert.ToInt32(rawResult);
+            if(newUser.ClientID == 0)
+            {
+                newUser.Error = "Email Address Already in Use.";
+            }
             return newUser;
         }
-        public Users LoginCheck(string Email)
+        public string LoginCheck(string Email, string Hash)
         {
+            string result;
             string dbHash;
+            byte[] initVectorBytes = Encoding.UTF8.GetBytes(initVector);
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+            PasswordDeriveBytes password = new PasswordDeriveBytes(Hash, null);
+            byte[] keyBytes = password.GetBytes(keysize / 8);
+            RijndaelManaged symmetricKey = new RijndaelManaged();
+            symmetricKey.Mode = CipherMode.CBC;
+            ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes);
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
+            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+            cryptoStream.FlushFinalBlock();
+            byte[] cipherTextBytes = memoryStream.ToArray();
+            memoryStream.Close();
+            cryptoStream.Close();
+            Hash = Convert.ToBase64String(cipherTextBytes);
             dbHash = context.LoginCheck(Email).FirstOrDefault();
-            return new Users();
+
+            if(dbHash == Hash)
+            {
+                result = "Login Successful";
+            }
+            else
+            {
+                result = "Login Failed";
+            }
+            return result;
         }
         public string AddUserToMeeting(string FirstName, string LastName, int TaskID, string Email)
         {
             string Error = "";
-            context.AddUserToMeeting(FirstName, LastName, TaskID, Email);
-            return Error;
+            try
+            {
+                context.AddUserToMeeting(FirstName, LastName, TaskID, Email);
+                return Error;
+            }
+            catch (Exception e)
+            {
+                if(e.InnerException.ToString().StartsWith("Cannot insert the value NULL into column 'ClientID'"))
+                {
+                    Error = "User doesn't exist.";
+                }
+                return Error;
+            }
         }
         public string CancelMeeting(int MeetingID)
         {

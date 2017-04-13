@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SchedngoModelStoreContainer" CdmEntityContainer="SchedngoEntities">
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="SchedngoModel.Contact">
+        <MappingFragment StoreEntitySet="Contacts">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="SchedngoModel.Task">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="OrganizerID" ColumnName="OrganizerID" />
+          <ScalarProperty Name="TaskTime" ColumnName="TaskTime" />
+          <ScalarProperty Name="TaskAddress" ColumnName="TaskAddress" />
+          <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+          <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaskTypes">
+      <EntityTypeMapping TypeName="SchedngoModel.TaskType">
+        <MappingFragment StoreEntitySet="TaskTypes">
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfoes">
+      <EntityTypeMapping TypeName="SchedngoModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Hash" ColumnName="Hash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="SchedngoModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTasks">
+      <EntityTypeMapping TypeName="SchedngoModel.UserTask">
+        <MappingFragment StoreEntitySet="UserTasks">
+          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddUserToMeeting" FunctionName="SchedngoModel.Store.AddUserToMeeting" />
+    <FunctionImportMapping FunctionImportName="CancelMeeting" FunctionName="SchedngoModel.Store.CancelMeeting" />
+    <FunctionImportMapping FunctionImportName="GetAllUsersInvitedToMeeting" FunctionName="SchedngoModel.Store.GetAllUsersInvitedToMeeting">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchedngoModel.GetAllUsersInvitedToMeeting_Result">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetContactInfo" FunctionName="SchedngoModel.Store.GetContactInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchedngoModel.GetContactInfo_Result">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetMeetingInfoForUser" FunctionName="SchedngoModel.Store.GetMeetingInfoForUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchedngoModel.GetMeetingInfoForUser_Result">
+          <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+          <ScalarProperty Name="TaskTime" ColumnName="TaskTime" />
+          <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetSpecficMeetingInfo" FunctionName="SchedngoModel.Store.GetSpecficMeetingInfo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchedngoModel.GetSpecficMeetingInfo_Result">
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+          <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+          <ScalarProperty Name="TaskTime" ColumnName="TaskTime" />
+          <ScalarProperty Name="TaskAddress" ColumnName="TaskAddress" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetUser" FunctionName="SchedngoModel.Store.GetUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SchedngoModel.GetUser_Result">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertContact" FunctionName="SchedngoModel.Store.InsertContact" />
+    <FunctionImportMapping FunctionImportName="InsertTask" FunctionName="SchedngoModel.Store.InsertTask" />
+    <FunctionImportMapping FunctionImportName="InsertTaskType" FunctionName="SchedngoModel.Store.InsertTaskType" />
+    <FunctionImportMapping FunctionImportName="InsertUser" FunctionName="SchedngoModel.Store.InsertUser" />
+    <FunctionImportMapping FunctionImportName="LoginCheck" FunctionName="SchedngoModel.Store.LoginCheck" />
+    <FunctionImportMapping FunctionImportName="RemoveUserFromMeeting" FunctionName="SchedngoModel.Store.RemoveUserFromMeeting" />
+    <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="SchedngoModel.Store.UpdatePassword" />
+    <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="SchedngoModel.Store.UpdateUser" />
+  </EntityContainerMapping>
+</Mapping>
