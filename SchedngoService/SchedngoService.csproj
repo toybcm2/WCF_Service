@@ -187,6 +187,7 @@
     <Content Include="SchedngoModel.edmx.diagram">
       <DependentUpon>SchedngoModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -212,7 +213,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>22424</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:22424/</IISUrl>
+          <IISUrl>http://localhost/SchedngoService</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost/Schedngo</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://10.0.0.7:2121/Schedngo</CustomServerUrl>
