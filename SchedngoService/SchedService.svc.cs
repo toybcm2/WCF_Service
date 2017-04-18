@@ -225,7 +225,16 @@ namespace SchedngoService
         public string InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName)
         {
             string Error = "";
-            context.InsertTask(ClientID, TypeName, Time, Address, TaskName);
+            try
+            {
+                context.InsertTask(ClientID, TypeName, Time, Address, TaskName);
+                Error = "Successful";
+            }
+            catch(Exception e)
+            {
+                Error = e.InnerException.ToString();
+            }
+            
             return Error;
         }
         public string RemoveUserFromMeeting(int MeetingID, int ClientID)
