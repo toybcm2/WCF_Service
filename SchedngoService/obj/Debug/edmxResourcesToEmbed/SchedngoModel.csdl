@@ -24,6 +24,8 @@
     <Property Name="TaskAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="TaskName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Cancelled" Type="Boolean" Nullable="false" />
+    <Property Name="ChatID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Topic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TaskType">
     <Key>
@@ -105,6 +107,8 @@
       <Parameter Name="Time" Mode="In" Type="DateTime" />
       <Parameter Name="Address" Mode="In" Type="String" />
       <Parameter Name="TaskName" Mode="In" Type="String" />
+      <Parameter Name="Topics" Mode="In" Type="String" />
+      <Parameter Name="ChatID" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="InsertTaskType">
       <Parameter Name="Name" Mode="In" Type="String" />
@@ -166,6 +170,8 @@
     <Property Type="String" Name="Name" Nullable="false" />
     <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ChatID" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Topic" Nullable="true" />
   </ComplexType>
   <ComplexType Name="GetUser_Result">
     <Property Type="Int32" Name="ClientID" Nullable="false" />

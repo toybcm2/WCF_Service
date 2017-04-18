@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SchedngoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SchedngoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="ClientID" />
@@ -29,6 +29,8 @@
           <Property Name="TaskAddress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TaskName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Cancelled" Type="bit" Nullable="false" />
+          <Property Name="ChatID" Type="nvarchar" MaxLength="20" />
+          <Property Name="Topic" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TaskTypes">
           <Key>
@@ -103,6 +105,8 @@
           <Parameter Name="Time" Type="datetime" Mode="In" />
           <Parameter Name="Address" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="TaskName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Topics" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ChatID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="InsertTaskType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
@@ -143,7 +147,8 @@
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTasks" EntityType="Self.UserTasks" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchedngoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -171,6 +176,8 @@
           <Property Name="TaskAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TaskName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Cancelled" Type="Boolean" Nullable="false" />
+          <Property Name="ChatID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Topic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TaskType">
           <Key>
@@ -221,22 +228,22 @@
             <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CancelMeeting">
-          <Parameter Name="MeetingID" Mode="In" Type="Int32" />
+            <Parameter Name="MeetingID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAllUsersInvitedToMeeting" ReturnType="Collection(SchedngoModel.GetAllUsersInvitedToMeeting_Result)">
-          <Parameter Name="TaskID" Mode="In" Type="Int32" />
+            <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetContactInfo" ReturnType="Collection(SchedngoModel.GetContactInfo_Result)">
-          <Parameter Name="ClientId" Mode="In" Type="Int32" />
+            <Parameter Name="ClientId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetMeetingInfoForUser" ReturnType="Collection(SchedngoModel.GetMeetingInfoForUser_Result)">
-          <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetSpecficMeetingInfo" ReturnType="Collection(SchedngoModel.GetSpecficMeetingInfo_Result)">
-          <Parameter Name="TaskID" Mode="In" Type="Int32" />
+            <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUser" ReturnType="Collection(SchedngoModel.GetUser_Result)">
-          <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertContact">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
@@ -252,9 +259,11 @@
             <Parameter Name="Time" Mode="In" Type="DateTime" />
             <Parameter Name="Address" Mode="In" Type="String" />
             <Parameter Name="TaskName" Mode="In" Type="String" />
+            <Parameter Name="Topics" Mode="In" Type="String" />
+            <Parameter Name="ChatID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertTaskType">
-          <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertUser" ReturnType="Collection(Int32)">
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -267,7 +276,7 @@
             <Parameter Name="Hash" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="LoginCheck" ReturnType="Collection(String)">
-          <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RemoveUserFromMeeting">
             <Parameter Name="MeetingID" Mode="In" Type="Int32" />
@@ -313,6 +322,8 @@
           <Property Type="String" Name="Name" Nullable="false" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ChatID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Topic" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetUser_Result">
           <Property Type="Int32" Name="ClientID" Nullable="false" />
@@ -352,6 +363,8 @@
                 <ScalarProperty Name="TaskAddress" ColumnName="TaskAddress" />
                 <ScalarProperty Name="TaskName" ColumnName="TaskName" />
                 <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -437,6 +450,8 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

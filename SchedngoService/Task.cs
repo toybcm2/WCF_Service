@@ -21,5 +21,7 @@ namespace SchedngoService
         public string TaskAddress { get; set; }
         public string TaskName { get; set; }
         public bool Cancelled { get; set; }
+        public string ChatID { get; set; }
+        public string Topic { get; set; }
     }
 }

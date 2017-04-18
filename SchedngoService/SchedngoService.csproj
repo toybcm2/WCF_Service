@@ -180,6 +180,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <EntityDeploy Include="SchedngoModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SchedngoModel.Designer.cs</LastGenOutput>
@@ -187,7 +188,6 @@
     <Content Include="SchedngoModel.edmx.diagram">
       <DependentUpon>SchedngoModel.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

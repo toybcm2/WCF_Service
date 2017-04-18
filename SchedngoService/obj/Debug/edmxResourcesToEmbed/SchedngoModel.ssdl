@@ -24,6 +24,8 @@
     <Property Name="TaskAddress" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TaskName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Cancelled" Type="bit" Nullable="false" />
+    <Property Name="ChatID" Type="nvarchar" MaxLength="20" />
+    <Property Name="Topic" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="TaskTypes">
     <Key>
@@ -98,6 +100,8 @@
     <Parameter Name="Time" Type="datetime" Mode="In" />
     <Parameter Name="Address" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="TaskName" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Topics" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="ChatID" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="InsertTaskType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Name" Type="nvarchar" Mode="In" />

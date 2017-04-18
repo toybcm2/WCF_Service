@@ -31,5 +31,9 @@ namespace SchedngoService.Models
         public string TypeName { get; set; }
         [DataMember]
         public string Error { get; set; }
+        [DataMember]
+        public string Topic { get; set; }
+        [DataMember]
+        public string ChatID { get; set; }
     }
 }

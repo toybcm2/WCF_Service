@@ -36,7 +36,7 @@ namespace SchedngoService
         [OperationContract]
         string InsertContact(int ClientID, string FirstName, string LastName, string Phone, string Email, string Address);
         [OperationContract]
-        string InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName);
+        string InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName, string ChatID, string Topic);
         [OperationContract]
         string RemoveUserFromMeeting(int MeetingID, int ClientID);
         [OperationContract]

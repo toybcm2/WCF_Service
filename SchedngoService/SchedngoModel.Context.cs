@@ -138,7 +138,7 @@ namespace SchedngoService
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertContact", clientIDParameter, firstNameParameter, lastNameParameter, phoneParameter, emailParameter, addressParameter);
         }
     
-        public virtual int InsertTask(Nullable<int> clientID, string typeName, Nullable<System.DateTime> time, string address, string taskName)
+        public virtual int InsertTask(Nullable<int> clientID, string typeName, Nullable<System.DateTime> time, string address, string taskName, string topics, string chatID)
         {
             var clientIDParameter = clientID.HasValue ?
                 new ObjectParameter("ClientID", clientID) :
@@ -160,7 +160,15 @@ namespace SchedngoService
                 new ObjectParameter("TaskName", taskName) :
                 new ObjectParameter("TaskName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTask", clientIDParameter, typeNameParameter, timeParameter, addressParameter, taskNameParameter);
+            var topicsParameter = topics != null ?
+                new ObjectParameter("Topics", topics) :
+                new ObjectParameter("Topics", typeof(string));
+    
+            var chatIDParameter = chatID != null ?
+                new ObjectParameter("ChatID", chatID) :
+                new ObjectParameter("ChatID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertTask", clientIDParameter, typeNameParameter, timeParameter, addressParameter, taskNameParameter, topicsParameter, chatIDParameter);
         }
     
         public virtual int InsertTaskType(string name)

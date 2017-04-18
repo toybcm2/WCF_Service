@@ -23,6 +23,8 @@
           <ScalarProperty Name="TaskAddress" ColumnName="TaskAddress" />
           <ScalarProperty Name="TaskName" ColumnName="TaskName" />
           <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
+          <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+          <ScalarProperty Name="Topic" ColumnName="Topic" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -108,6 +110,8 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+          <ScalarProperty Name="Topic" ColumnName="Topic" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

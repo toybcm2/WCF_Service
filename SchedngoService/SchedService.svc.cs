@@ -177,6 +177,8 @@ namespace SchedngoService
                 result.OrganizerLastName = rawresult.LastName;
                 result.TypeName = rawresult.Name;
                 result.TaskID = rawresult.TaskID;
+                result.Topic = rawresult.Topic;
+                result.ChatID = rawresult.ChatID;
             }
             catch (Exception e)
             {
@@ -222,12 +224,12 @@ namespace SchedngoService
             context.InsertContact(ClientID, FirstName, LastName, Phone, Email, Address);
             return Error;
         }
-        public string InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName)
+        public string InsertTask(int ClientID, string TypeName, DateTime Time, string Address, string TaskName, string ChatID, string Topic)
         {
             string Error = "";
             try
             {
-                context.InsertTask(ClientID, TypeName, Time, Address, TaskName);
+                context.InsertTask(ClientID, TypeName, Time, Address, TaskName, Topic, ChatID);
                 Error = "Successful";
             }
             catch(Exception e)
