@@ -151,6 +151,7 @@ namespace SchedngoService
             {
                 result.Add(new Tasks
                 {
+                    TaskID = task.TaskID,
                     TaskName = task.TaskName,
                     TypeName = task.Name,
                     TaskTime = task.TaskTime,

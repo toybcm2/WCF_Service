@@ -17,5 +17,6 @@ namespace SchedngoService
         public System.DateTime TaskTime { get; set; }
         public bool Cancelled { get; set; }
         public string Name { get; set; }
+        public int TaskID { get; set; }
     }
 }

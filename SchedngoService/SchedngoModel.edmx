@@ -312,6 +312,7 @@
           <Property Type="DateTime" Name="TaskTime" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="Cancelled" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="Int32" Name="TaskID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="GetSpecficMeetingInfo_Result">
           <Property Type="Int32" Name="TaskID" Nullable="false" />
@@ -436,6 +437,7 @@
                 <ScalarProperty Name="TaskTime" ColumnName="TaskTime" />
                 <ScalarProperty Name="Cancelled" ColumnName="Cancelled" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
