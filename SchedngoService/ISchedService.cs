@@ -43,6 +43,8 @@ namespace SchedngoService
         string UpdateUser(int ClientID, string Phone, string Address, string UserName, byte[] Avatar);
         [OperationContract]
         string UpdatePassword(int ClientID, string Hash);
+        [OperationContract]
+        string AddUserToMeetingThroughChatID(int ClientID, string ChatID);
 
     }
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

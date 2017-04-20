@@ -246,6 +246,23 @@ namespace SchedngoService
             context.RemoveUserFromMeeting(MeetingID, ClientID);
             return Error;
         }
+        public string AddUserToMeetingThroughChatID(int ClientID, string ChatID)
+        {
+            string Error = "";
+            try
+            {
+                context.AddUserToMeetingThroughChatID(ClientID, ChatID);
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException.ToString().StartsWith("Cannot insert the value NULL into column 'MeetingID'"))
+                {
+                    Error = "Task doesn't exist.";
+                }
+                return Error;
+            }
+            return Error;
+        }
         public string UpdateUser(int ClientID, string Phone, string Address, string UserName, byte[] Avatar)
         {
             string Error = "";

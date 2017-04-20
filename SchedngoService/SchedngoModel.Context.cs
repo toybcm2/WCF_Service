@@ -276,5 +276,18 @@ namespace SchedngoService
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUser", clientIDParameter, phoneParameter, avatarParameter, addressParameter, userNameParameter);
         }
+    
+        public virtual int AddUserToMeetingThroughChatID(Nullable<int> clientID, string chatID)
+        {
+            var clientIDParameter = clientID.HasValue ?
+                new ObjectParameter("ClientID", clientID) :
+                new ObjectParameter("ClientID", typeof(int));
+    
+            var chatIDParameter = chatID != null ?
+                new ObjectParameter("ChatID", chatID) :
+                new ObjectParameter("ChatID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUserToMeetingThroughChatID", clientIDParameter, chatIDParameter);
+        }
     }
 }

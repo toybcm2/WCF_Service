@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SchedngoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SchedngoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="ClientID" />
@@ -72,6 +72,10 @@
           <Parameter Name="LastName" Type="nvarchar" Mode="In" />
           <Parameter Name="TaskID" Type="int" Mode="In" />
           <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AddUserToMeetingThroughChatID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="ChatID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="CancelMeeting" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MeetingID" Type="int" Mode="In" />
@@ -147,8 +151,7 @@
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTasks" EntityType="Self.UserTasks" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchedngoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -228,22 +231,22 @@
             <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CancelMeeting">
-            <Parameter Name="MeetingID" Mode="In" Type="Int32" />
+          <Parameter Name="MeetingID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAllUsersInvitedToMeeting" ReturnType="Collection(SchedngoModel.GetAllUsersInvitedToMeeting_Result)">
-            <Parameter Name="TaskID" Mode="In" Type="Int32" />
+          <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetContactInfo" ReturnType="Collection(SchedngoModel.GetContactInfo_Result)">
-            <Parameter Name="ClientId" Mode="In" Type="Int32" />
+          <Parameter Name="ClientId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetMeetingInfoForUser" ReturnType="Collection(SchedngoModel.GetMeetingInfoForUser_Result)">
-            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+          <Parameter Name="ClientID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetSpecficMeetingInfo" ReturnType="Collection(SchedngoModel.GetSpecficMeetingInfo_Result)">
-            <Parameter Name="TaskID" Mode="In" Type="Int32" />
+          <Parameter Name="TaskID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetUser" ReturnType="Collection(SchedngoModel.GetUser_Result)">
-            <Parameter Name="Email" Mode="In" Type="String" />
+          <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertContact">
             <Parameter Name="ClientID" Mode="In" Type="Int32" />
@@ -263,7 +266,7 @@
             <Parameter Name="ChatID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertTaskType">
-            <Parameter Name="Name" Mode="In" Type="String" />
+          <Parameter Name="Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertUser" ReturnType="Collection(Int32)">
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -276,7 +279,7 @@
             <Parameter Name="Hash" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="LoginCheck" ReturnType="Collection(String)">
-            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          <Parameter Name="EmailAddress" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RemoveUserFromMeeting">
             <Parameter Name="MeetingID" Mode="In" Type="Int32" />
@@ -292,6 +295,10 @@
             <Parameter Name="Avatar" Mode="In" Type="Binary" />
             <Parameter Name="Address" Mode="In" Type="String" />
             <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddUserToMeetingThroughChatID">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ChatID" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetAllUsersInvitedToMeeting_Result">
@@ -479,6 +486,7 @@
           <FunctionImportMapping FunctionImportName="RemoveUserFromMeeting" FunctionName="SchedngoModel.Store.RemoveUserFromMeeting" />
           <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="SchedngoModel.Store.UpdatePassword" />
           <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="SchedngoModel.Store.UpdateUser" />
+          <FunctionImportMapping FunctionImportName="AddUserToMeetingThroughChatID" FunctionName="SchedngoModel.Store.AddUserToMeetingThroughChatID" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
